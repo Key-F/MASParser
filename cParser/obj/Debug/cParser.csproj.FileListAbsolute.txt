@@ -1,0 +1,12 @@
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Debug\cParser.exe.config
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Debug\cParser.exe
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Debug\cParser.pdb
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Debug\HtmlAgilityPack.dll
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Debug\HtmlAgilityPack.pdb
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Debug\HtmlAgilityPack.xml
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.csprojResolveAssemblyReference.cache
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.Form1.resources
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.Properties.Resources.resources
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.csproj.GenerateResource.Cache
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.exe
+c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.pdb
