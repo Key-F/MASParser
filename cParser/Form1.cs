@@ -52,17 +52,30 @@ namespace cParser
             htmlString =  new  StreamReader(openFileDialog1.FileName).ReadToEnd();
             document.LoadHtml(htmlString);
 
-            HtmlNodeCollection collection = document.DocumentNode.SelectNodes("//div[@class='text']");
-            if (collection != null)
+            HtmlNodeCollection comments = document.DocumentNode.SelectNodes("//div[@class='text']");
+            HtmlNodeCollection names = document.DocumentNode.SelectNodes("//b[@class='user_name']");
+            HtmlNodeCollection date = document.DocumentNode.SelectNodes("//div[@class='descr']");
+            //HtmlNodeCollection collection = document.DocumentNode.SelectNodes("//*[@id='id_text_q_1273059']");
+            int i = names.Count;
+            if (comments != null)
             {
-                foreach (HtmlNode link in collection)
+                //foreach (HtmlNode link in collection)
+                do
                 {
                     comment newc = new comment();
-                    newc.text = link.InnerText;
+                    newc.text = comments[i].InnerText;
+                    newc.author = names[i - 1].InnerText;
+                    newc.date = date[i - 1].InnerText.Replace("\t", "");
+                    string[] words = newc.date.Split(new char[] { ' ', ',' });
+                    newc.date = words[words.Length - 4] + " " + words[words.Length - 3]+ " " + words[words.Length - 1];
+
                     Com.Add(newc);
-                    richTextBox1.Text = richTextBox1.Text + link.InnerText;
-                   // MessageBox.Show(link.InnerText); //string target = link.Attributes["href"].Value;
+                    richTextBox1.Text = richTextBox1.Text + newc.author + " " + newc.date;
+                    richTextBox1.Text = richTextBox1.Text + "\n";
+                    // MessageBox.Show(link.InnerText); //string target = link.Attributes["href"].Value;
+                    i--;
                 }
+                while (i != 0);
             }
         }
     }
