@@ -67,7 +67,9 @@ namespace cParser
                     newc.author = names[i - 1].InnerText;
                     newc.date = date[i - 1].InnerText.Replace("\t", "");
                     string[] words = newc.date.Split(new char[] { ' ', ',' });
-                    newc.date = words[words.Length - 4] + " " + words[words.Length - 3]+ " " + words[words.Length - 1];
+                    words[words.Length - 5] = newc.deletebukvi(words[words.Length - 5]); // Убрали страну от числа
+                    newc.date = words[words.Length - 5] +" " + words[words.Length - 4] + " " + words[words.Length - 3]+ " " + words[words.Length - 1];
+                    newc.setDateOfPost(words);
 
                     Com.Add(newc);
                     richTextBox1.Text = richTextBox1.Text + newc.author + " " + newc.date;
