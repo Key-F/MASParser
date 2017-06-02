@@ -9,4 +9,4 @@ c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cP
 c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.csproj.GenerateResource.Cache
 c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.exe
 c:\users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.pdb
-C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.RichTextBoxExtensions.resources
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Debug\cParser.Form1.resources
