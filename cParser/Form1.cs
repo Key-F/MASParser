@@ -12,9 +12,22 @@ using System.IO;
 
 namespace cParser
 {
+    public static class RichTextBoxExtensions
+    {
+        public static void AppendText(this RichTextBox box, string text, Color color)
+        {
+            box.SelectionStart = box.TextLength;
+            box.SelectionLength = 0;
+            box.SelectionColor = color;
+            box.AppendText(text);
+            box.SelectionColor = box.ForeColor;
+        }
+    }
     public partial class Form1 : Form
     {
         string htmlString;
+        List<comment> Com = new List<comment>();
+         
         public Form1()
         {
             InitializeComponent();
@@ -22,19 +35,27 @@ namespace cParser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
-            string htmlString = "<html>blabla</html>";
-            document.LoadHtml(htmlString);
-            HtmlNodeCollection collection = document.DocumentNode.SelectNodes("//a");
-            foreach (HtmlNode link in collection)
+            
+            for(int i = Com.Count - 1; i >= 0; i--)
             {
-                string target = link.Attributes["href"].Value;
+                for (int j = 0; j < Com[i].vlozhennost / 10; j++)
+                {
+                    richTextBox1.AppendText("---");
+                }
+
+                richTextBox1.AppendText(Com[i].author, Color.DimGray );
+                richTextBox1.AppendText(" " + Com[i].date + " : ");
+                if (Com[i].vlozhennost == 0) richTextBox1.AppendText(Com[i].text, Color.Red);
+                else
+                richTextBox1.AppendText(Com[i].text, Color.Blue);
+                richTextBox1.AppendText("\n");
             }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            List <comment> Com = new List<comment>();
+            //List <comment> Com = new List<comment>();
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
             openFileDialog1.Filter = "html files (*.html)| *.html" ;
@@ -55,6 +76,7 @@ namespace cParser
             HtmlNodeCollection comments = document.DocumentNode.SelectNodes("//div[@class='text']");
             HtmlNodeCollection names = document.DocumentNode.SelectNodes("//b[@class='user_name']");
             HtmlNodeCollection date = document.DocumentNode.SelectNodes("//div[@class='descr']");
+            HtmlNodeCollection relation = document.DocumentNode.SelectNodes("//div[@class='preloadMe comment pr ']");
             //HtmlNodeCollection collection = document.DocumentNode.SelectNodes("//*[@id='id_text_q_1273059']");
             int i = names.Count;
             if (comments != null)
@@ -70,14 +92,19 @@ namespace cParser
                     words[words.Length - 5] = newc.deletebukvi(words[words.Length - 5]); // Убрали страну от числа
                     newc.date = words[words.Length - 5] +" " + words[words.Length - 4] + " " + words[words.Length - 3]+ " " + words[words.Length - 1];
                     newc.setDateOfPost(words);
+                    string orezrel1 = relation[i - 1].OuterHtml.Substring(relation[i - 1].OuterHtml.IndexOf(':') + 1);
+                    string orezrel2 = orezrel1.Substring(0, orezrel1.IndexOf("px;"));
+
+                    newc.vlozhennost = Convert.ToInt32(orezrel2);
 
                     Com.Add(newc);
-                    richTextBox1.Text = richTextBox1.Text + newc.author + " " + newc.date;
-                    richTextBox1.Text = richTextBox1.Text + "\n";
+                    //richTextBox1.Text = richTextBox1.Text + newc.author + " " + newc.date;
+                    //richTextBox1.Text = richTextBox1.Text + "\n";
                     // MessageBox.Show(link.InnerText); //string target = link.Attributes["href"].Value;
                     i--;
                 }
                 while (i != 0);
+                MessageBox.Show("Done!");
             }
         }
     }

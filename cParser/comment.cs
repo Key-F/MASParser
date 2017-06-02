@@ -15,6 +15,7 @@ namespace cParser
         public string text {get; set;}
         public string date;
         public DateTime dateOfPost;
+        public int vlozhennost;
 
         public void setDateOfPost(string[] words)
         {
