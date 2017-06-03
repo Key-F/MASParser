@@ -1,0 +1,12 @@
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Release\cParser.exe.config
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Release\cParser.exe
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Release\cParser.pdb
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Release\HtmlAgilityPack.dll
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Release\HtmlAgilityPack.pdb
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\bin\Release\HtmlAgilityPack.xml
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Release\cParser.csprojResolveAssemblyReference.cache
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Release\cParser.Form1.resources
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Release\cParser.Properties.Resources.resources
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Release\cParser.csproj.GenerateResource.Cache
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Release\cParser.exe
+C:\Users\keyf\documents\visual studio 2013\Projects\cParser\cParser\obj\Release\cParser.pdb
