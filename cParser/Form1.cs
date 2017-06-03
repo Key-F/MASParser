@@ -59,62 +59,77 @@ namespace cParser
         private void button2_Click(object sender, EventArgs e)
         {
             //List <comment> Com = new List<comment>();
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
-            openFileDialog1.Filter = "html files (*.html)| *.html" ;
-     
-            openFileDialog1.ShowDialog();
-            Com.Clear();
-            
-            StreamReader s = new StreamReader(openFileDialog1.FileName, true);
-            //string line;
-                
-           /* while ((line = s.ReadLine()) != null)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                // OpenFileDialog openFileDialog1 = new OpenFileDialog();
+                HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
+                openFileDialog1.Filter = "html files (*.html)| *.html";
 
-                richTextBox1.Text = richTextBox1.Text + line;
-            } */
-            htmlString =  new  StreamReader(openFileDialog1.FileName).ReadToEnd();
-            document.LoadHtml(htmlString);
+                //openFileDialog1.ShowDialog();
+                Com.Clear();
 
-            HtmlNodeCollection comments = document.DocumentNode.SelectNodes("//div[@class='text']");
-            HtmlNodeCollection names = document.DocumentNode.SelectNodes("//b[@class='user_name']");
-            HtmlNodeCollection date = document.DocumentNode.SelectNodes("//div[@class='descr']");
-            HtmlNodeCollection relation = document.DocumentNode.SelectNodes("//div[@class='preloadMe comment pr ']"); // не все прогружаются
-            HtmlNodeCollection mainguy = document.DocumentNode.SelectNodes("//span[@class='krohi']");
-            //HtmlNodeCollection collection = document.DocumentNode.SelectNodes("//*[@id='id_text_q_1273059']");
-            string findguy1 = mainguy[0].OuterHtml.Substring(mainguy[0].OuterHtml.IndexOf("m/blog/") + 7);
-            string temp = ">";
-            //string temp = "</a>";
-            string findguy2 = findguy1.Substring(0, findguy1.IndexOf(temp) - 1); // @"/" чет не работает
-            PostAuthor = findguy2;
-            int i = names.Count;
-            if (comments != null)
-            {
-                //foreach (HtmlNode link in collection)
-                do
+                StreamReader s = new StreamReader(openFileDialog1.FileName, true);
+                //string line;
+
+                /* while ((line = s.ReadLine()) != null)
+                 {
+
+                     richTextBox1.Text = richTextBox1.Text + line;
+                 } */
+                htmlString = new StreamReader(openFileDialog1.FileName).ReadToEnd();
+                document.LoadHtml(htmlString);
+
+                HtmlNodeCollection comments = document.DocumentNode.SelectNodes("//div[@class='text']");
+                HtmlNodeCollection names = document.DocumentNode.SelectNodes("//b[@class='user_name']");
+                HtmlNodeCollection date = document.DocumentNode.SelectNodes("//div[@class='descr']");
+                HtmlNodeCollection relation = document.DocumentNode.SelectNodes("//div[@class='preloadMe comment pr ']"); // не все прогружаются
+                HtmlNodeCollection mainguy = document.DocumentNode.SelectNodes("//span[@class='krohi']");
+                //HtmlNodeCollection collection = document.DocumentNode.SelectNodes("//*[@id='id_text_q_1273059']");
+                string findguy1 = mainguy[0].OuterHtml.Substring(mainguy[0].OuterHtml.IndexOf("/blog/") + 6);
+                string temp = ">";
+                //string temp = "</a>";
+                string findguy2 = findguy1.Substring(0, findguy1.IndexOf(temp) - 1); // @"/" чет не работает
+                PostAuthor = findguy2;
+                int i = names.Count;
+                if (comments != null)
                 {
-                    comment newc = new comment();
-                    newc.text = comments[i].InnerText;
-                    newc.author = names[i - 1].InnerText;
-                    newc.date = date[i - 1].InnerText.Replace("\t", "");
-                    string[] words = newc.date.Split(new char[] { ' ', ',' });
-                    words[words.Length - 5] = newc.deletebukvi(words[words.Length - 5]); // Убрали страну от числа
-                    newc.date = words[words.Length - 5] +" " + words[words.Length - 4] + " " + words[words.Length - 3]+ " " + words[words.Length - 1];
-                    newc.setDateOfPost(words);
-                    string orezrel1 = relation[i - 1].OuterHtml.Substring(relation[i - 1].OuterHtml.IndexOf(':') + 1); // Убрали до двоеточия
-                    string orezrel2 = orezrel1.Substring(0, orezrel1.IndexOf("px;")); // Убрали после px;
+                    //foreach (HtmlNode link in collection)
+                    do
+                    {
+                        comment newc = new comment();
+                        newc.text = comments[i].InnerText;
+                        newc.author = names[i - 1].InnerText;
+                        newc.date = date[i - 1].InnerText.Replace("\t", "");
+                        string[] words = newc.date.Split(new char[] { ' ', ',' });
+                        words[words.Length - 5] = newc.deletebukvi(words[words.Length - 5]); // Убрали страну от числа
+                        newc.date = words[words.Length - 5] + " " + words[words.Length - 4] + " " + words[words.Length - 3] + " " + words[words.Length - 1];
+                        newc.setDateOfPost(words);
+                        try
+                        {
+                            string orezrel1 = relation[i - 1].OuterHtml.Substring(relation[i - 1].OuterHtml.IndexOf(':') + 1); // Убрали до двоеточия
+                            string orezrel2 = orezrel1.Substring(0, orezrel1.IndexOf("px;")); // Убрали после px;
 
-                    newc.vlozhennost = Convert.ToInt32(orezrel2);
+                            newc.vlozhennost = Convert.ToInt32(orezrel2);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("При сохранении страницы нужно выбрать [только html]");
+                            return;
 
-                    Com.Add(newc);
-                    //richTextBox1.Text = richTextBox1.Text + newc.author + " " + newc.date;
-                    //richTextBox1.Text = richTextBox1.Text + "\n";
-                    // MessageBox.Show(link.InnerText); //string target = link.Attributes["href"].Value;
-                    i--;
+                        }
+                        //string orezrel2 = orezrel1.Substring(0, orezrel1.IndexOf("px;")); // Убрали после px;
+
+                        // newc.vlozhennost = Convert.ToInt32(orezrel2);
+
+                        Com.Add(newc);
+                        //richTextBox1.Text = richTextBox1.Text + newc.author + " " + newc.date;
+                        //richTextBox1.Text = richTextBox1.Text + "\n";
+                        // MessageBox.Show(link.InnerText); //string target = link.Attributes["href"].Value;
+                        i--;
+                    }
+                    while (i != 0);
+                    MessageBox.Show("Done!");
                 }
-                while (i != 0);
-                MessageBox.Show("Done!");
             }
         }
 
@@ -128,10 +143,12 @@ namespace cParser
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) // WinCheck
         {
             DateTime End = DateTime.ParseExact(textBox4.Text, "dd-MM-yyyy hh:mm:ss", new CultureInfo("en-US"));
             //End.Date.ToString("yyyy-M-dd HH:mm:ss.fff");
+            richTextBox1.Clear();
+
             for (int i = Com.Count - 1; i >= 0; i--)
             {
                 for (int j = 0; j < Com[i].vlozhennost / 10; j++)
