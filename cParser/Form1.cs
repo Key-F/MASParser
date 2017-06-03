@@ -181,7 +181,7 @@ namespace cParser
                         richTextBox1.AppendText(" часов", Color.Fuchsia);
                         richTextBox1.AppendText(" Possible Winner", Color.Firebrick);
                     }
-                    if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost == 20) && (Com[i - 1].vlozhennost != 20) && (Com[i - 1].author == PostAuthor) && (Convert.ToDouble(ts.TotalHours) > 0) && (checkBox2.CheckState == CheckState.Checked))
+                    if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost == 20) && /*(Com[i - 1].vlozhennost != 20) && */(Com[i - 1].dateOfPost > End) && (Convert.ToDouble(ts.TotalHours) > 0) && (checkBox2.CheckState == CheckState.Checked))
                     {
 
                         richTextBox1.AppendText(" До окончания: ", Color.Black);
@@ -210,6 +210,11 @@ namespace cParser
 
             }
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("https://github.com/Key-F/MASParser", "Made By Key_F", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
         }
 
         
