@@ -148,7 +148,8 @@ namespace cParser
             DateTime End = DateTime.ParseExact(textBox4.Text, "dd-MM-yyyy hh:mm:ss", new CultureInfo("en-US"));
             //End.Date.ToString("yyyy-M-dd HH:mm:ss.fff");
             richTextBox1.Clear();
-
+             //(checkBox1.CheckState == CheckState.Checked)
+            
             for (int i = Com.Count - 1; i >= 0; i--)
             {
                 for (int j = 0; j < Com[i].vlozhennost / 10; j++)
@@ -160,6 +161,7 @@ namespace cParser
                 else
                     richTextBox1.AppendText(Com[i].author, Color.DimGray);
                 TimeSpan ts = End - Com[i].dateOfPost;
+                TimeSpan tsnow = DateTime.Today - Com[i].dateOfPost;
                // if (Convert.ToInt32(ts.Hours) > Convert.ToInt32(textBox1.Text))
                 richTextBox1.AppendText(" " + Com[i].date + " : ");
                 if ((Com[i].vlozhennost == 0) && (Com[i].author == PostAuthor))
@@ -171,12 +173,38 @@ namespace cParser
                 if (i != 0)
                 {
 
-                    if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost == 20) && (Com[i - 1].vlozhennost != 20)&& (Com[i - 1].author == PostAuthor) && (Convert.ToDouble(ts.TotalHours) > Convert.ToInt32(textBox1.Text)))
+                    if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost == 20) && (Com[i - 1].vlozhennost != 20) && (Com[i - 1].author == PostAuthor) && (Convert.ToDouble(tsnow.TotalHours) > Convert.ToInt32(textBox1.Text)) && (checkBox1.CheckState == CheckState.Checked))
+                    {
+                        
+                        richTextBox1.AppendText(" С момента ставки прошло: ", Color.Black);
+                        richTextBox1.AppendText(Convert.ToString((int)tsnow.TotalHours), Color.Fuchsia);
+                        richTextBox1.AppendText(" часов", Color.Fuchsia);
                         richTextBox1.AppendText(" Possible Winner", Color.Firebrick);
-                }
-                else if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost != 20) && (Convert.ToDouble(ts.TotalHours) > Convert.ToInt32(textBox1.Text)))
-                    richTextBox1.AppendText(" Possible Winner", Color.Firebrick);
+                    }
+                    if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost == 20) && (Com[i - 1].vlozhennost != 20) && (Com[i - 1].author == PostAuthor) && (Convert.ToDouble(ts.TotalHours) > 0) && (checkBox2.CheckState == CheckState.Checked))
+                    {
 
+                        richTextBox1.AppendText(" До окончания: ", Color.Black);
+                        richTextBox1.AppendText(Convert.ToString((int)ts.TotalHours), Color.Fuchsia);
+                        richTextBox1.AppendText(" часов", Color.Fuchsia);
+                        richTextBox1.AppendText(" Possible Winner", Color.Firebrick);
+                    }
+                }
+                else if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost != 20) && (Convert.ToDouble(tsnow.TotalHours) > Convert.ToInt32(textBox1.Text)) && (checkBox1.CheckState == CheckState.Checked))
+                {
+                    richTextBox1.AppendText(" С момента ставки прошло: ", Color.Black);
+                    richTextBox1.AppendText(Convert.ToString((int)tsnow.TotalHours), Color.Fuchsia);
+                    richTextBox1.AppendText(" часов", Color.Fuchsia);
+                    richTextBox1.AppendText(" Possible Winner", Color.Firebrick);                  
+                }
+                else if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost != 20) && (Convert.ToDouble(tsnow.TotalHours) > 0) && (checkBox1.CheckState == CheckState.Checked))
+                {
+
+                    richTextBox1.AppendText(" До окончания: ", Color.Black);
+                    richTextBox1.AppendText(Convert.ToString((int)ts.TotalHours), Color.Fuchsia);
+                    richTextBox1.AppendText(" часов", Color.Fuchsia);
+                    richTextBox1.AppendText(" Possible Winner", Color.Firebrick);
+                }
                 richTextBox1.ScrollToCaret();
                 richTextBox1.AppendText("\n");
 
