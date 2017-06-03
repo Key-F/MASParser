@@ -80,7 +80,7 @@ namespace cParser
             HtmlNodeCollection comments = document.DocumentNode.SelectNodes("//div[@class='text']");
             HtmlNodeCollection names = document.DocumentNode.SelectNodes("//b[@class='user_name']");
             HtmlNodeCollection date = document.DocumentNode.SelectNodes("//div[@class='descr']");
-            HtmlNodeCollection relation = document.DocumentNode.SelectNodes("//div[@class='preloadMe comment pr ']");
+            HtmlNodeCollection relation = document.DocumentNode.SelectNodes("//div[@class='preloadMe comment pr ']"); // не все прогружаются
             HtmlNodeCollection mainguy = document.DocumentNode.SelectNodes("//span[@class='krohi']");
             //HtmlNodeCollection collection = document.DocumentNode.SelectNodes("//*[@id='id_text_q_1273059']");
             string findguy1 = mainguy[0].OuterHtml.Substring(mainguy[0].OuterHtml.IndexOf("m/blog/") + 7);

@@ -66,7 +66,7 @@ namespace cParser
                 case "Apr":
                     month = 4;
                     break;
-                case "май":
+                case "мая":
                 case "May":
                     month = 5;
                     break;
