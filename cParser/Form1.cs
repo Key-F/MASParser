@@ -23,9 +23,9 @@ namespace cParser
         public Form1()
         {
             InitializeComponent();
-            DateTime thisDay = DateTime.Today;
+            DateTime thisDay = DateTime.Now; // Today -> Now
             
-            textBox4.Text = DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss");
+            textBox4.Text = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"); // hh -> HH для корректного отображния часов
             
         }
 
@@ -148,7 +148,7 @@ namespace cParser
             DateTime End;
             try
             {
-                End = DateTime.ParseExact(textBox4.Text, "dd-MM-yyyy hh:mm:ss", new CultureInfo("en-US"));
+                End = DateTime.ParseExact(textBox4.Text, "dd-MM-yyyy HH:mm:ss", new CultureInfo("en-US"));
             }
             catch 
             {
@@ -169,8 +169,11 @@ namespace cParser
                     richTextBox1.AppendText(Com[i].author, Color.DarkViolet);
                 else
                     richTextBox1.AppendText(Com[i].author, Color.DimGray);
+
                 TimeSpan ts = End - Com[i].dateOfPost;
                 TimeSpan tsnow = DateTime.Today - Com[i].dateOfPost;
+
+               // DateTime ts2 = new DateTime((End - Com[i].dateOfPost).Ticks);
                // if (Convert.ToInt32(ts.Hours) > Convert.ToInt32(textBox1.Text))
                 richTextBox1.AppendText(" " + Com[i].date + " : ");
                 if ((Com[i].vlozhennost == 0) && (Com[i].author == PostAuthor))
@@ -208,7 +211,7 @@ namespace cParser
                         richTextBox1.AppendText(" часов", Color.Fuchsia);
                         richTextBox1.AppendText(" Possible Winner", Color.Firebrick);
                     }
-                    if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost >= 20) && (Convert.ToDouble(tsnow.TotalHours) > 0) && (checkBox1.CheckState == CheckState.Checked))
+                    if ((Com[i].author != PostAuthor) && (Com[i].vlozhennost >= 20) && (Convert.ToDouble(tsnow.TotalHours) > 0) && (checkBox2.CheckState == CheckState.Checked))
                     {
 
                         richTextBox1.AppendText(" До окончания: ", Color.Black);
